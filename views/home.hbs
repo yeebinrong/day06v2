@@ -24,14 +24,17 @@
         {{/if}}
     </table>
     <div class="con margin">
-        <form class="inline-block" action="/search" method="GET">
-            {{#if firstpage}}
-            <input class="text-lg margin" type="submit" name="s" id="s" value="previous">
-            {{/if}}
-            <input class="text-lg margin" type="submit" name="s" id="s" value="next">
-            <input type="hidden" name="q" id="q" value="{{q}}">
-            <input type="hidden" name="page" id="page" value="{{page}}">
-            <input type="hidden" name="prevbtn" id="prevbtn" value="{{prevbtn}}">
+        {{#if prevbtn}}
+        <form class="inline-block" action="/search" method="get">
+            <input type="hidden" name="q" value="{{q}}">
+            <button type="submit" name="offset" value="{{prevOffset}}">Prev</button>
         </form>
+        {{/if}}
+        {{#if data}}
+        <form class="inline-block" action="/search" method="get">
+            <input type="hidden" name="q" value="{{q}}">
+            <button type="submit" name="offset" value="{{nextOffset}}">Next</button>
+        </form>
+        {{/if}}
     </div>
 </div>

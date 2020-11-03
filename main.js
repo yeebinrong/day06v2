@@ -57,27 +57,11 @@ app.use(express.static(`${__dirname}/static`))
 app.get('/search', 
     async (req, resp) => {
         const q = req.query.q
-        const limit = 10
-        const prevbtn = req.query.s
-        let page = parseInt(req.query.page) || 1
-        let offset = 0
+        let limit = 10
+        let offset = parseInt(req.query.offset) || 0
         let conn;
-        // html tracks one page behind due to the GET
-        if ((prevbtn == "previous" && page == 2) || page == 1 && !prevbtn)
-            firstpage = 0
-        else
-            firstpage = 1
-
-        if (prevbtn == "previous")
-        {
-            page -= 1
-        }
-        else if (prevbtn == "next")
-        {
-            page += 1
-        }
-
-        offset = (page - 1) * limit
+        const page = (offset / limit) + 1
+        
         try {
             conn = await pool.getConnection()
             const results = await conn.query(SQL_FIND_BY_NAME, [`%${q}%`, limit, offset])
@@ -89,9 +73,10 @@ app.get('/search',
                     title : 'Search results',
                     q,
                     data,
-                    page,
-                    prevbtn,
-                    firstpage
+                    prevOffset: Math.max(offset - limit),
+                    nextOffset: offset + 10,
+                    prevbtn: offset,
+                    page
                 }
             )
         } 
