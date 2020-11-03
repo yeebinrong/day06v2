@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="con">
+        <h1>Playstore</h1>
+    </div>
+    <div class="con">
+        <form action="/search" method="GET">
+            <label for="q">Search</label>
+            <input class="searchbar text-center text-lg" type="text" name="q" id="q" placeholder="Search for application name." required="required">
+            <input class="submitbtn" type="submit" value="Search now!">
+            <input type="hidden" name="page" id="page" value="1">
+        </form>
+    </div>    
+    {{{body}}}
+</body>
+</html>

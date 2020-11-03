@@ -1,0 +1,37 @@
+<div class="con text-center">
+    <h3>Searching for {{q}} at page {{page}}</h3>
+
+    <table class="center">
+        {{#if data}}
+        <tr>
+            <th>APP ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Rating</th>
+            <th>No. of installs</th>
+        </tr>
+            {{#each data}}
+            <tr>
+                <td>{{this.app_id}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.category}}</td>
+                <td>{{this.rating}}</td>
+                <td>{{this.installs}}</td>
+            </tr>
+            {{/each}}
+        {{else}}
+            <h1>You have returned no results!</h1>
+        {{/if}}
+    </table>
+    <div class="con margin">
+        <form class="inline-block" action="/search" method="GET">
+            {{#if firstpage}}
+            <input class="text-lg margin" type="submit" name="s" id="s" value="previous">
+            {{/if}}
+            <input class="text-lg margin" type="submit" name="s" id="s" value="next">
+            <input type="hidden" name="q" id="q" value="{{q}}">
+            <input type="hidden" name="page" id="page" value="{{page}}">
+            <input type="hidden" name="prevbtn" id="prevbtn" value="{{prevbtn}}">
+        </form>
+    </div>
+</div>
